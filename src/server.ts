@@ -29,13 +29,13 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
 
   /**************************************************************************** */
 
-  app.get('/filteredimage', async(req, res) => {
+  app.get('/filteredimage', async(req: express.Request, res: express.Response) => {
     if (!req.query.image_url) {
       res.status(400).send('url is not provided');
       return;
     }
 
-    let f = await filterImageFromURL(req.query.image_url);
+    let f: string = await filterImageFromURL(req.query.image_url);
     res.status(200).sendFile(f, () => {
       deleteLocalFiles([f]);
     });
